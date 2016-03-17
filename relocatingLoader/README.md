@@ -1,6 +1,15 @@
 #Relocating Loader
 Relocating Loader loads the object code into memory, at available memory location and makes correction for forward reference text records, and changes calls to variables by incrementing program start with it.
 
+##Usage
+```
+g++ relocatingLoader.cpp -o relocatingLoader
+./relocatingLoader
+g++ relocatingLoaderMinimum.cpp -o relocatingLoaderMinimum
+./relocatingLoaderMinimum <hexProgramStartAddress>
+	Eg : ./relocatingLoaderMinimum 2000
+```
+
 ##Algorithm
 ```
 begin

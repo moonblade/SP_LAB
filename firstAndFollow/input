@@ -1,0 +1,5 @@
+Expression --> Tee ExpressionBar
+ExpressionBar --> + Tee ExpressionBar | epsilon 
+Final --> ( Expression ) | x
+Tee --> Final TeeBar
+TeeBar --> * Final TeeBar | epsilon

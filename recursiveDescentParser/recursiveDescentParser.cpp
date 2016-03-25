@@ -135,5 +135,6 @@ int main(int argc, char const *argv[])
 		}
 
 	}
+	f.close();
 	return 0;
 }

@@ -61,5 +61,6 @@ int main()
 		else
 			cout<<"Rejected : "<<i<<endl;
 	}
+	f.close();
 	return 0;
 }

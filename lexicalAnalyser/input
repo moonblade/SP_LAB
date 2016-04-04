@@ -1,0 +1,10 @@
+#include<iostream.h>
+int main()
+{
+int a;
+int b;
+int s;
+s = b + a;
+cout<<"sum : ";
+cout<<s;
+}

@@ -22,8 +22,7 @@ int main(int argc, char const *argv[])
 	string line,unedited;
 	while(getline(f,line,'\n'))
 	{
-		cout<<endl<<line<<endl;
-		unedited=line;
+		cout<<endl<<(unedited=line)<<endl;
 		while(line.find_first_not_of(' ') != std::string::npos)
 			for(map<string,regex>::iterator riter=regexes.begin();riter!=regexes.end();riter++)
 				if(regex_search(line,matched,riter->second)){

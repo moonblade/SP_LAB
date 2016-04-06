@@ -40,7 +40,8 @@ int icp(string e)
 int main(int argc, char const *argv[])
 {
 	ifstream f("input");
-	string line,code,element;
+	string line,element;
+	int i=0;
 	while(getline(f,line))
 	{
 		stringstream s(line);
@@ -71,21 +72,31 @@ int main(int argc, char const *argv[])
 			postfixExpression+=expression.top()+" ";
 			expression.pop();
 		}
-		// stringstream ss(postfixExpression);
-		// while(getline(ss,element,' '))
-		// {
-		// 	if(sisalnum(element))
-		// 		expression.push(element);
-		// 	else
-		// 	{
-		// 		// string one=expression.top(); expression.pop();
-		// 		// string two=expression.top(); expression.pop();
-		// 		// string result;
-		// 		// result=one+element+two;
-		// 		// expression.push(result);
-		// 	}
-		// }
-		cout<<endl<<postfixExpression<<endl;
+		stringstream ss(postfixExpression);
+		while(getline(ss,element,' '))
+			if(sisalnum(element))
+				expression.push(element);
+			else
+			{
+				string one=expression.top(); expression.pop();
+				string two=expression.top(); expression.pop();
+				string result;
+				if(element=="="){
+					result = two+element+one;
+				}
+				else{
+					cout<<"t"+to_string(i)+"="+two+element+one+"\n";
+					result="t"+to_string(i);
+				}
+					expression.push(result);
+				i++;
+			}
+		while(!expression.empty())
+		{
+			cout<<expression.top();
+			expression.pop();
+		}
+		cout<<endl;
 		postfixExpression="";
 	}
 	return 0;

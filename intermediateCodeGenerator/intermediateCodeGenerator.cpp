@@ -82,14 +82,14 @@ int main(int argc, char const *argv[])
 				string two=expression.top(); expression.pop();
 				string result;
 				if(element=="="){
-					result = two+element+one;
+					result = two+" "+element+" "+one;
 				}
 				else{
-					cout<<"t"+to_string(i)+"="+two+element+one+"\n";
 					result="t"+to_string(i);
+					cout<<result+" = "+two+" "+element+" "+one+"\n";
+					i++;
 				}
 					expression.push(result);
-				i++;
 			}
 		while(!expression.empty())
 		{

@@ -14,6 +14,20 @@ int p(string input)
 	if(input=="/"){return 2;}
 	return -1;
 }
+list<string> rm(string in)
+{
+	list<string> out;
+	bool f=0;
+	for(int i=0;i<in.length();i++)
+	{
+		if(in[i]=='<')
+			f=1;
+		if(in[i]!='>' && in[i]!='<')
+			if(!(in[i]!='$' && in[i+1]=='>' && f))
+				out.push_back(string(1,in[i]));
+	}
+	return out;
+}
 int main(int argc, char const *argv[])
 {
 	ifstream f("input");
@@ -26,20 +40,26 @@ int main(int argc, char const *argv[])
 		while(getline(s,element,' '))
 			expression.push_back(element);
 		expression.push_back("$");
-		for(auto iter=expression.begin();iter!=expression.end();iter++)
-			{
-				auto after=iter; after++;	
-				if(after!=expression.end())
+		while(expression.size()>2)
+		{
+			string ex="";
+			for(auto iter=expression.begin();iter!=expression.end();iter++)
 				{
-					if(p(*iter)<=p(*after))
-						cout<<*iter<<"<";
-					else if(p(*iter)>p(*after))
-						cout<<*iter<<">";
+					auto after=iter; after++;	
+					if(after!=expression.end())
+					{
+						if(p(*iter)<=p(*after))
+							ex+=*iter+"<";
+						else if(p(*iter)>p(*after))
+							ex+=*iter+">";
+					}
+					else
+						ex+=*iter;
 				}
-				else
-					cout<<*iter;
-			}
-			cout<<endl;
+				cout<<ex;
+				expression=rm(ex);
+				cout<<endl;
+		}
 	}
 	return 0;
 }

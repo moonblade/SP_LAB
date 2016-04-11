@@ -19,13 +19,8 @@ list<string> rm(string in)
 	list<string> out;
 	bool f=0;
 	for(int i=0;i<in.length();i++)
-	{
-		if(in[i]=='<')
-			f=1;
-		if(in[i]!='>' && in[i]!='<')
-			if(!(in[i]!='$' && in[i+1]=='>' && f))
-				out.push_back(string(1,in[i]));
-	}
+		if((in[i]!='>' && in[i]!='<') && !(in[i]!='$' && in[i+1]=='>' && in[i-1]=='<'))
+					out.push_back(string(1,in[i]));
 	return out;
 }
 int main(int argc, char const *argv[])
@@ -60,6 +55,7 @@ int main(int argc, char const *argv[])
 				expression=rm(ex);
 				cout<<endl;
 		}
+		cout<<endl;
 	}
 	return 0;
 }

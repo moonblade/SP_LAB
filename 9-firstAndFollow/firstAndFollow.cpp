@@ -45,7 +45,7 @@ So each production could be composed of a list of productions, and each of these
 So E' -> + T E' | epsilon would be stored as a map between E' and the list of list {{+,T,E'},{epsilon}}
 */
 map<string,list<list<string> > > productions;
-// Every element starting with a capital letter is a terminal, else its a non terminal
+// Every element starting with a capital letter is a non terminal, else its a terminal
 bool isTerminal(string element){return !isupper(element[0]);}
 /*
 A function to split a line into a string lhs (Variable) and a list of list of strings productions
@@ -94,6 +94,15 @@ int insertFirstOfNext(string variable,list<string>::iterator next,list<string>::
 	bool repeat=0;
 	/*If the next element exists, ie if the next element is not the end of the list*/
 	if(next!=end)
+		/*If the element is a terminal, then add it to the first of lhs, if the lhs is not found in the list of elements, then a new object is created*/
+		if(isTerminal(*next))
+		{
+			if(elements.find(variable)==elements.end())
+				elements[variable]=FnF();
+			if(elements[variable].first.insert(*next).second)
+				repeat=1;
+		}
+		else
 		/*Itreate through the first of the next element*/
 		for(set<string>::iterator setItor=elements[*next].first.begin();setItor!=elements[*next].first.end(); setItor++)
 			/*Add each of the firsts to the first of the current element 
@@ -159,15 +168,6 @@ void addFirstAndFollow()
 				/*If the element is at beginnign*/
 				if(beginning)
 				{
-					/*If the element is a terminal, then add it to the first of lhs, if the lhs is not found in the list of elements, then a new object is created*/
-					if(isTerminal(*siter))
-					{
-						if(elements.find(*siter)==elements.end())
-							elements[*siter]=FnF(*siter);
-						if(elements[iter->first].first.insert(*siter).second)
-							repeat=1;
-					}
-					else
 						/*if the element is non terminal, then the first of the next element is inserted as the first of this, using above logic*/
 						repeat=insertFirstOfNext(iter->first,siter,(*liter).end());
 					beginning=0;

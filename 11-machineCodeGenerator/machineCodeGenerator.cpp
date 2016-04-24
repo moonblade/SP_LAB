@@ -10,8 +10,7 @@ int main(int argc, char const *argv[])
 	string line,element,first,operatr;
 	stringstream s;
 	while(getline(f,line)&&(s=stringstream(line))&&getline(s,first,' '))
-		while(getline(s,element,' ')&&getline(s,operatr,' '))
-			cout<<op[element]<<" "<<first<<", "<<operatr<<"\n";
+		while(getline(s,element,' ')&&getline(s,operatr,' ')&&(cout<<op[element]<<" "<<first<<", "<<operatr<<"\n"));
 	f.close();
 	return 0;
 }

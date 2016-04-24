@@ -1,61 +1,68 @@
-#include "iostream"
-#include "fstream"
-#include "string"
-#include "sstream"
-#include "list"
+#include <iostream>
+#include <stack>
+
+#include <fstream>
 using namespace std;
-int p(string input)
+int isp(char a)
 {
-	if(input=="$"){return 0;}
-	if(input=="x"){return 5;}
-	if(input=="+"){return 1;}
-	if(input=="-"){return 1;}
-	if(input=="*"){return 2;}
-	if(input=="/"){return 2;}
+	switch(a)
+	{
+		case '+':
+		case '-':return 1;
+		case '*':
+		case '/':return 2;
+		case 'x':return 5;
+		case '$':return 0;
+	}
 	return -1;
 }
-list<string> rm(string in)
+
+int icp(char a)
 {
-	list<string> out;
-	bool f=0;
-	for(int i=0;i<in.length();i++)
-		if((in[i]!='>' && in[i]!='<') && !(in[i]!='$' && in[i+1]=='>' && in[i-1]=='<'))
-					out.push_back(string(1,in[i]));
-	return out;
+	switch(a)
+	{
+		case '+':
+		case '-':return 1;
+		case '*':
+		case '/':return 2;
+		case 'x':return 5;
+		case '$':return 0;
+	}
+	return -1;
+	
 }
+
 int main(int argc, char const *argv[])
 {
+	stack<char> st;
 	ifstream f("input");
-	string line,element;
+	string line;
 	while(getline(f,line))
 	{
-		stringstream s(line);
-		list<string> expression;
-		expression.push_back("$");
-		while(getline(s,element,' '))
-			expression.push_back(element);
-		expression.push_back("$");
-		while(expression.size()>2)
+		line="$"+line+"$";
+		cout<<line<<" ";
+		for(int i=0;i<line.length();++i)
 		{
-			string ex="";
-			for(auto iter=expression.begin();iter!=expression.end();iter++)
-				{
-					auto after=iter; after++;	
-					if(after!=expression.end())
-					{
-						if(p(*iter)<p(*after))
-							ex+=*iter+"<";
-						else if(p(*iter)>=p(*after))
-							ex+=*iter+">";
-					}
-					else
-						ex+=*iter;
+				if(st.empty() || isp(st.top())<icp(line[i])){
+					st.push(line[i]);
 				}
-				cout<<ex;
-				expression=rm(ex);
-				cout<<endl;
+				else
+				{
+					while(!st.empty() && isp(st.top())>=icp(line[i]))
+						st.pop();
+					st.push(line[i]);
+				}
 		}
-		cout<<endl;
+		if(st.top()=='$')
+			{
+				st.pop();
+				if(st.empty())
+					cout<<"Accepted\n";
+				else
+					cout<<"Rejected";
+		}					
+		else
+			cout<<"Rejected";
 	}
 	return 0;
 }

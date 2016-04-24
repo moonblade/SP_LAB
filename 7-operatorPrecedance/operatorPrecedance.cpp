@@ -43,9 +43,9 @@ int main(int argc, char const *argv[])
 					auto after=iter; after++;	
 					if(after!=expression.end())
 					{
-						if(p(*iter)<=p(*after))
+						if(p(*iter)<p(*after))
 							ex+=*iter+"<";
-						else if(p(*iter)>p(*after))
+						else if(p(*iter)>=p(*after))
 							ex+=*iter+">";
 					}
 					else

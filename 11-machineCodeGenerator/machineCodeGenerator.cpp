@@ -2,34 +2,32 @@
 #include "fstream"
 #include "sstream"
 #include "list"
+#include <map>
+
 using namespace std;
 int main(int argc, char const *argv[])
 {
+	map<string,string> op;
+	op["="]="MOV";
+	op["+"]="ADD";
+	op["-"]="SUB";
+	op["*"]="MUL";
+	op["/"]="DIV";
 	ifstream f("input");
 	string line,element;
 	while(getline(f,line))
 	{
 		list<string> linel;
 		stringstream s(line);
+		string first;
+		getline(s,first,' ');
 		while(getline(s,element,' '))
-			linel.push_back(element);
-		for(list<string>::iterator iter=linel.begin(); iter!=linel.end(); iter++)
 		{
-			list<string>::iterator before=iter;
-			before--;
-			list<string>::iterator after=iter;
-			after++;
-			if(*iter=="=")
-				cout<<"MOV "<<*before<<", "<<*after<<"\n";
-			if(*iter=="+")
-				cout<<"ADD "<<*linel.begin()<<", "<<*after<<"\n";
-			if(*iter=="*")
-				cout<<"MUL "<<*linel.begin()<<", "<<*after<<"\n";
-			if(*iter=="-")
-				cout<<"SUB "<<*linel.begin()<<", "<<*after<<"\n";
-			if(*iter=="/")
-				cout<<"DIV "<<*linel.begin()<<", "<<*after<<"\n";
+			string a;
+			getline(s,a,' ');
+			cout<<op[element]<<" "<<first<<", "<<a<<"\n";
 		}
+
 	}
 	f.close();
 	return 0;

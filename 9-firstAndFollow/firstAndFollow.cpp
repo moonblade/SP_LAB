@@ -151,7 +151,7 @@ void addFirstAndFollow()
 	for(map<string, list<list<string> > >::iterator iter = productions.begin(); iter!=productions.end(); iter++)
 		for(list<list<string> >::iterator liter = (iter->second).begin(); liter!=(iter->second).end(); liter++)
 		{
-			/*Two levels down, the first word is sepearated using beggining flag for first operations*/
+			/*Two levels down, the firstrst word is sepearated using beggining flag for first operations*/
 			beginning=1;	
 			/*Iterate through the productions*/
 			for(list<string>::iterator siter = (*liter).begin(); siter!=(*liter).end(); siter++)

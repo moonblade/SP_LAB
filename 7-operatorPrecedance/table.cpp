@@ -11,7 +11,6 @@ map<char,map<char, char> > table;
 list<pair<char,char> > tbeforent;
 list<pair<char,char> > tafternt;
 list<pair<char,char> > tntt;
-// list<char> t={'$','(',')','i','n','^','*','/','+','-'};
 set<char> t;
 int isT(char a)
 {
@@ -43,7 +42,7 @@ int main(int argc, char const *argv[])
 					tbeforent.push_back(*new pair<char,char>(element[i-1],element[i]));
 				// terminal after non terminal
 				else if(!isT(element[i-1])&&isT(element[i]))
-					tafternt.push_back(*new pair<char,char>(element[i],element[i-1]));
+					tafternt.push_back(*new pair<char,char>(element[i-1],element[i]));
 			}
 			// terminal enclosing non terminal t-nt-t or t-t
 			for(int i=1;i<element.length();++i)
@@ -112,26 +111,35 @@ int main(int argc, char const *argv[])
 			if(!isT(*j))
 				i->second.second.erase(*j);
 	}
+	//fill start
+	// for(auto i=fl.begin();i!=fl.end();i++)
+	{
+		auto i=fl.begin();
+		char a=i->first;
+		for(auto j=i->second.first.begin(); j!=i->second.first.end();j++)
+			{
+				table['$'][*j]='<';
+			}			
+		for(auto j=i->second.second.begin(); j!=i->second.second.end();j++)
+			{
+				table[*j]['$']='>';
+			}
+	}
 	// Make table
 	for(auto i=tbeforent.begin();i!=tbeforent.end();i++)
 	{
 		char a=i->first;
 		auto b=fl[i->second].first;
-		if(table.find(a)==table.end())
-			table[a]=*new map<char,char>();
 		for(auto j=b.begin();j!=b.end();++j)
 			table[a][*j]='<';
 		
 	}
 	for(auto i=tafternt.begin();i!=tafternt.end();i++)
 	{
-		char a=i->first;
-		auto b=fl[i->second].second;
-		if(table.find(a)==table.end())
-			table[a]=*new map<char,char>();
+		char a=i->second;
+		auto b=fl[i->first].second;
 		for(auto j=b.begin();j!=b.end();++j)
-			if(table[a][*j]==0)
-				table[a][*j]='>';
+			table[*j][a]='>';
 	}
 	for(auto i=tntt.begin();i!=tntt.end();i++)
 	{
@@ -142,25 +150,6 @@ int main(int argc, char const *argv[])
 		if(table[a][b]==0)
 			table[a][b]='=';
 	}
-	for(auto i=fl.begin();i!=fl.end();i++)
-	{
-		char a=i->first;
-		if(table.find(a)==table.end())
-			table[a]=*new map<char,char>();
-		if(table.find('$')==table.end())
-			table['$']=*new map<char,char>();
-		for(auto j=i->second.first.begin(); j!=i->second.first.end();j++)
-			{
-				table['$'][*j]='<';
-				table[*j]['$']='>';
-			}			
-		for(auto j=i->second.second.begin(); j!=i->second.second.end();j++)
-			{
-				table['$'][*j]='<';
-				table[*j]['$']='>';
-			}
-	}
-
 // Print
 	cout<<"  ";
 	for(auto i=t.begin();i!=t.end();i++)

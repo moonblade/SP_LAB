@@ -17,7 +17,6 @@ public:
 	set<char> first;
 	set<char> last;
 	list<list<char> > prod;
-	Op(){}
 	void print()
 	{
 		cout<<"firstop : ";
@@ -129,8 +128,6 @@ void fillstart(char s)
 		table['$'][*j]='<';
 	for(auto j=b.begin();j!=b.end();++j)
 		table[*j]['$']='>';
-
-
 }
 void createTable()
 {

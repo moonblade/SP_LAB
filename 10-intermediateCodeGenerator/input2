@@ -1,0 +1,6 @@
+int a = 10
+int b = 12
+float c
+c = 13
+float d = 50
+float e = a + b * ( b + 5 ) + ( b + d ) - 5

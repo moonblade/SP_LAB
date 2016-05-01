@@ -39,6 +39,7 @@ int main(int argc, char const *argv[])
 				ss<<setw(6)<<setfill('0')<<hex<<operand;
 				ss>>saddress;
 				locctr=saddress;
+				textRecord.first=locctr;
 				stringstream name;
 				name<<setw(6)<<setfill(' ')<<label;
 				headerRecord="H^"+name.str()+"^"+ss.str()+"^";

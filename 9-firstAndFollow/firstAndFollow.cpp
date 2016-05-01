@@ -51,6 +51,8 @@ bool isTerminal(string element){return !isupper(element[0]);}
 A function to split a line into a string lhs (Variable) and a list of list of strings productions
 They are returned as a pair, A pair is a datatype used to return two data members using pairObject.first pairObject.second
 Here a pair of string (variable) and list<list<string>> productions is returned
+A->BCD|EF
+{A,{{B,C,D},{E,F}}}
 */
 pair<string,list<list<string> > > split(string line)
 {
@@ -97,14 +99,12 @@ int insertFirstOfNext(string variable,list<string>::iterator next,list<string>::
 		/*If the element is a terminal, then add it to the first of lhs, if the lhs is not found in the list of elements, then a new object is created*/
 		if(isTerminal(*next))
 		{
-			if(elements.find(variable)==elements.end())
-				elements[variable]=FnF();
 			if(elements[variable].first.insert(*next).second)
 				repeat=1;
 		}
 		else
 		/*Itreate through the first of the next element*/
-		for(set<string>::iterator setItor=elements[*next].first.begin();setItor!=elements[*next].first.end(); setItor++)
+		for(auto setItor=elements[*next].first.begin();setItor!=elements[*next].first.end(); setItor++)
 			/*Add each of the firsts to the first of the current element 
 			(if the element already exists in the current element's first, then its return pair's 
 			second will be false, if inserted, it will be true, So if an insertion has occured,
@@ -134,18 +134,18 @@ int insertFollowFromNext(string superVariable,list<string>::iterator next,list<s
 		else
 		{	
 			/*loop through the first of the next element and add each to the current's follow, if no addition is done, repeat remains as 0*/
-			for(set<string>::iterator iter=elements[*next].first.begin();iter!=elements[*next].first.end();iter++)
+			for(auto iter=elements[*next].first.begin();iter!=elements[*next].first.end();iter++)
 				if(*iter!=epsilon && elements[variable].follow.insert(*iter).second)
 						repeat = 1;
 			/*If the first of the next element has an epsilon in it, then add the follow of the next element as well to the follow of the current element*/
 			if(elements[*next].first.find(epsilon)!=elements[*next].first.end())
-				for(set<string>::iterator iter=elements[*next].follow.begin();iter!=elements[*next].follow.end();iter++)
+				for(auto iter=elements[*next].follow.begin();iter!=elements[*next].follow.end();iter++)
 					if(elements[variable].follow.insert(*iter).second)
 						repeat=1;
 		}
 	else
 		/*If the variable is at the end of the list, then add the follow of the supervariable(ie the lhs of the production) to the follow of the current element */
-		for(set<string>::iterator iter=elements[superVariable].follow.begin();iter!=elements[superVariable].follow.end();iter++)
+		for(auto iter=elements[superVariable].follow.begin();iter!=elements[superVariable].follow.end();iter++)
 			/*If no insertion has been done, repeat remains zero*/
 			if(elements[variable].follow.insert(*iter).second)
 				repeat=1;
@@ -157,13 +157,13 @@ void addFirstAndFollow()
 	/*Repeat and a simple beginning flag for the beginning, since first needs only the beginning of each production and is not to be done for each element*/
 	bool repeat=0,beginning=1;
 	/*iterate through all the productions, for a this a list<list<string>> iterator is required, ie three levels of iterations*/
-	for(map<string, list<list<string> > >::iterator iter = productions.begin(); iter!=productions.end(); iter++)
-		for(list<list<string> >::iterator liter = (iter->second).begin(); liter!=(iter->second).end(); liter++)
+	for(auto iter = productions.begin(); iter!=productions.end(); iter++)
+		for(auto liter = (iter->second).begin(); liter!=(iter->second).end(); liter++)
 		{
 			/*Two levels down, the firstrst word is sepearated using beggining flag for first operations*/
 			beginning=1;	
 			/*Iterate through the productions*/
-			for(list<string>::iterator siter = (*liter).begin(); siter!=(*liter).end(); siter++)
+			for(auto siter = (*liter).begin(); siter!=(*liter).end(); siter++)
 			{
 				/*If the element is at beginnign*/
 				if(beginning)

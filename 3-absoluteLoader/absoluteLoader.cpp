@@ -21,11 +21,11 @@ int main(int argc, char const *argv[])
 	// The name of the program from header record
 	string programName;	
 	// File open
-	ifstream f(inputFile);
+	freopen("input","r",stdin);
 	// Each line of the file is received into the string object, line
 	string line;
 	// Loop through all lines in inputFile, till end of file, the delimeter used is \n or endl
-	while(getline(f,line,'\n'))
+	while(getline(cin,line,'\n'))
 	{
 		// Ignore empty lines
 		if(line.length()>0)
@@ -103,6 +103,5 @@ int main(int argc, char const *argv[])
 	}
 	// Print where to start the program at
 	cout<<endl<<"Start Program At "<<hex<<programStart<<endl;
-	f.close();
 	return 0;
 }

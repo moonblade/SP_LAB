@@ -44,7 +44,7 @@ int main()
 		// Copy the line to unedited, gonna remove stuff from line, untill it is nothing;
 		unedited=line;
 		// While there are still non whitespace characters in the line
-		while(line.find_first_not_of(' ') != std::string::npos)
+		while(line.find_first_not_of(' ') != -1)
 			// Loop through the iterator map and apply each on the line
 			for(map<string,regex>::iterator riter=regexes.begin();riter!=regexes.end();riter++)
 				// If a regex match is found, store it in matched

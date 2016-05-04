@@ -1,5 +1,6 @@
 int a = 10
-int b = 12
+int b 
+b = 12
 float c
 c = 13
 float d = 50

@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 		optab[nmemonic]=opcode;
 	}
 	f.close();
-	// freopen("source","r",stdin);
+	freopen("source","r",stdin);
 	while(getline(cin,line))
 	{
 		linum++;
@@ -47,7 +47,7 @@ int main(int argc, char const *argv[])
 			else if(opcode=="END")
 			{
 				stringstream end;
-				// end<<setw(6)<<setfill('0')<<hex<<saddress;
+				end<<setw(6)<<setfill('0')<<hex<<saddress;
 				endRecord="E^"+end.str();
 			}
 			else
@@ -79,11 +79,7 @@ int main(int argc, char const *argv[])
 						}
 					}
 					else
-					{
-						pair<int,list<int> > entry;
-						entry.first=locctr;
-						symtab[label]=entry;
-					}
+						symtab[label].first=locctr;
 				}
 				if(optab.find(opcode)!=optab.end())
 				{

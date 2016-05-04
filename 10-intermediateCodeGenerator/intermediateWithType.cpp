@@ -12,11 +12,16 @@ map<string,string> type;
 list<string> pf;
 bool sisalnum(string a)
 {
-	return find_if(a.begin(),a.end(),[](char t){return (!isalnum(t)||t=='.');})==a.end();
+	return find_if(a.begin(),a.end(),[](char t){return (!isalnum(t));})==a.end();
 }
 bool sisnum(string a)
 {
-	return find_if(a.begin(),a.end(),[](char t){return (!isdigit(t)||t=='.');})==a.end();
+	return find_if(a.begin(),a.end(),[](char t){return (!isdigit(t));})==a.end();
+}
+bool sisfloat(string a)
+{
+	// return find_if(a.begin(),a.end(),[](char t){return !(isdigit(t)||(t=='.'));})==a.end();
+	return false;
 }
 int isp(string a)
 {
@@ -91,6 +96,10 @@ int main(int argc, char const *argv[])
 			if(sisnum(element)){
 				type[element]="int";
 			}
+			// else if(sisfloat(element))
+			{
+				// type[element]="float";
+			}
 
 			if(element=="int"||element=="float")
 				{
@@ -123,7 +132,7 @@ int main(int argc, char const *argv[])
 					if(type[a]!=type[b])
 						if(type[a]=="int")
 							a="intToFloat("+a+")";
-					cout<<b<<" "<<element<<" "<<a<<endl;
+					cout<<type[b]<<" "<<b<<" "<<element<<" "<<a<<endl;
 				}
 				else
 				{
@@ -134,11 +143,11 @@ int main(int argc, char const *argv[])
 						else
 							b="intToFloat("+b+")";
 					}
-					cout<<"t"<<t<<" = "<<b<<" "<<element<<" "<<a<<endl;
 					if(type[b]=="float"||type[a]=="float")
 						type["t"+to_string(t)]="float";
 					else
 						type["t"+to_string(t)]="int";
+					cout<<type["t"+to_string(t)]<<" "<<"t"<<t<<" = "<<b<<" "<<element<<" "<<a<<endl;
 
 					alpha.push("t"+to_string(t++));
 				}

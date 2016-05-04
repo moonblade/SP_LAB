@@ -11,6 +11,9 @@ int isT(char a)
 {
 	return !isupper(a);
 }
+/*
+{E,{{E,+,T},{T}}
+*/
 class Op
 {
 public:

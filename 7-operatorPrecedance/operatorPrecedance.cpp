@@ -54,7 +54,7 @@ int main(int argc, char const *argv[])
 					while(!st.empty() && isp(st.top())>icp(line[i]))
 					{
 							// cout<<"now "<<st.top()<<" "<<line[i]<<endl;
-							// cout<<st.top();
+							cout<<st.top();
 							st.pop();
 							if(!st.empty() && st.top()=='(')
 								break;
